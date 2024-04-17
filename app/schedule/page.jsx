@@ -1,10 +1,10 @@
-import DemoComp from "@/components/calender/demoComp";
+import Schedule from "@/components/schedule";
 import React from "react";
 
 const page = () => {
   return (
     <div>
-      <DemoComp />
+      <Schedule />
     </div>
   );
 };

@@ -1,23 +1,21 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 // import Timezone from "./timezone.jsx";
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
-
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 const DemoComp = () => {
   const [value, onChange] = useState(new Date());
   console.log(value);
 
-  const formattedDate = value.toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric'
+  const formattedDate = value.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
   });
-
-  
-  
 
   return (
     <div>
@@ -201,7 +199,6 @@ const DemoComp = () => {
 
                 {/* /*date and time */}
                 <div className="yXXPyAx6ZnQ_1sL07UcY bUOrbFu6ZUwN8paYsknc wyF_fjmXW63y3Lx40e8z R0H8cdJJS564Rkru1FfV">
-
                   {/* date */}
                   <div className="mx-[1rem] mt-[4rem]">
                     <Calendar
@@ -212,11 +209,20 @@ const DemoComp = () => {
                   </div>
 
                   {/* time */}
-                  <div data-component="spotpicker-times" className="aC8yrhG_PZOrITgfQHXI SpxR_eHyXhzaZEVyTY3j HPzBvfnDCLBeVloRNB3F _eVPTQcJjL2Ie6bK0QzT">
-                    <h3 data-component="spotpicker-times-subtitle" className="gcP8rxpT2piRvbrS8lm_ AjRlD0Dp_PK95J_obyh1 ml-[1rem]">
+                  <div
+                    data-component="spotpicker-times"
+                    className="aC8yrhG_PZOrITgfQHXI SpxR_eHyXhzaZEVyTY3j HPzBvfnDCLBeVloRNB3F _eVPTQcJjL2Ie6bK0QzT"
+                  >
+                    <h3
+                      data-component="spotpicker-times-subtitle"
+                      className="gcP8rxpT2piRvbrS8lm_ AjRlD0Dp_PK95J_obyh1 ml-[1rem]"
+                    >
                       {formattedDate}
                     </h3>
-                    <div data-component="spotpicker-times-list" className="tBQ2sFQryHicoUQYC2a0 M7qTOn_cwtSaHIDllkgI y_GjIhKBuNa__U_12_Cl _JFfGiPduY9jBYmybYgH">
+                    <div
+                      data-component="spotpicker-times-list"
+                      className="tBQ2sFQryHicoUQYC2a0 M7qTOn_cwtSaHIDllkgI y_GjIhKBuNa__U_12_Cl _JFfGiPduY9jBYmybYgH"
+                    >
                       <TimeButton startTime="8:45am" />
                       <TimeButton startTime="9:15am" />
                       <TimeButton startTime="9:45am" />
@@ -258,12 +264,11 @@ const DemoComp = () => {
 
 export default DemoComp;
 
-
 function TimeButton({ startTime }) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const formPage = () => {
-    navigate('/bookingform');
-  }
+    router.push("/bookingform");
+  };
 
   return (
     <div role="listitem" className="JDQjzRj9BZy8YrjLJNgf ngEXwkfAkA9mdBwuiXNq">
@@ -273,10 +278,11 @@ function TimeButton({ startTime }) {
         className="uvkj3lh TiHRjLF_QTwJrPFR65WG s9RBSAJ2z5_reiWivfqd uoYd30C1K4Sdef0CubtJ tg_cqD7Ia3z_hRQg_eyg"
         type="button"
         onClick={formPage}
-
       >
         <div className="_nsuUAEh3mYW8eVzjz1b vQ3fZCbPbugeCo9yvAwg _1RK0lQvKxhI8hY5r8Th">
-          <div className="j1sPElHG5fkgLNJPo_Q_ BZeqDQO37C9rcYzv8s5n">{startTime}</div>
+          <div className="j1sPElHG5fkgLNJPo_Q_ BZeqDQO37C9rcYzv8s5n">
+            {startTime}
+          </div>
         </div>
       </button>
     </div>
