@@ -6,7 +6,8 @@ import "./index.css";
 import { useRouter } from "next/navigation";
 import { sendLead } from "@/utils/api";
 
-const BookingForm = () => {
+const BookingForm = ({ date, time }) => {
+  console.log(date, time);
   const router = useRouter();
 
   const currentDate = new Date();
@@ -18,6 +19,7 @@ const BookingForm = () => {
     description: "",
     whatsApp_number: "",
     booking_date: currentDate,
+    // booking_date: date,
     booking_time: "12:30:00",
     company: "Cloudprism",
     source: "Calendly Demo Booking",
@@ -39,11 +41,13 @@ const BookingForm = () => {
   // }
 
   const handleSubmit = async (event) => {
+    console.log(formData);
+
     event.preventDefault();
     try {
       await sendLead(formData);
       console.log("Lead sent successfully");
-      router.push("/schedule");
+      // router.push("/schedule");
     } catch (error) {
       console.error("Error sending lead:", error);
     }

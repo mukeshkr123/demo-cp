@@ -4,18 +4,35 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useState } from "react";
 // import Timezone from "./timezone.jsx";
+import "./demo.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 const DemoComp = () => {
   const [value, onChange] = useState(new Date());
-  console.log(value);
+  const [selectedTime, setSelectedTime] = useState(null); // State to store the selected time
+  const router = useRouter();
 
   const formattedDate = value.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
     day: "numeric",
   });
+
+  // Function to handle TimeButton click
+  const handleTimeButtonClick = (time) => {
+    const queryParams = {
+      date: value, // Convert date to ISO string
+      time: time,
+    };
+
+    const queryString = new URLSearchParams(queryParams).toString();
+
+    console.log(selectedTime);
+    setSelectedTime(time); // Update the selected time
+    // You can add additional logic here, such as navigating to another page
+    router.push(`/bookingform?${queryString}`);
+  };
 
   return (
     <div>
@@ -223,7 +240,7 @@ const DemoComp = () => {
                       data-component="spotpicker-times-list"
                       className="tBQ2sFQryHicoUQYC2a0 M7qTOn_cwtSaHIDllkgI y_GjIhKBuNa__U_12_Cl _JFfGiPduY9jBYmybYgH"
                     >
-                      <TimeButton startTime="8:45am" />
+                      {/* <TimeButton startTime="8:45am" />
                       <TimeButton startTime="9:15am" />
                       <TimeButton startTime="9:45am" />
                       <TimeButton startTime="10:15am" />
@@ -249,7 +266,16 @@ const DemoComp = () => {
                       <TimeButton startTime="8:15pm" />
                       <TimeButton startTime="8:45pm" />
                       <TimeButton startTime="9:15pm" />
-                      <TimeButton startTime="9:45pm" />
+                      <TimeButton startTime="9:45pm" /> */}
+                      {[...Array(24).keys()].map((hour) => (
+                        <TimeButton
+                          key={hour}
+                          startTime={`${hour % 12 === 0 ? 12 : hour % 12}:${
+                            hour % 2 === 0 ? "00" : "30"
+                          }${hour < 12 ? "am" : "pm"}`}
+                          onClick={handleTimeButtonClick} // Pass the callback function
+                        />
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -264,10 +290,10 @@ const DemoComp = () => {
 
 export default DemoComp;
 
-function TimeButton({ startTime }) {
-  const router = useRouter();
-  const formPage = () => {
-    router.push("/bookingform");
+function TimeButton({ startTime, onClick }) {
+  const handleClick = () => {
+    // Call the onClick function passed from the parent component
+    onClick(startTime);
   };
 
   return (
@@ -277,7 +303,7 @@ function TimeButton({ startTime }) {
         data-start-time={startTime}
         className="uvkj3lh TiHRjLF_QTwJrPFR65WG s9RBSAJ2z5_reiWivfqd uoYd30C1K4Sdef0CubtJ tg_cqD7Ia3z_hRQg_eyg"
         type="button"
-        onClick={formPage}
+        onClick={handleClick} // Call handleClick when button is clicked
       >
         <div className="_nsuUAEh3mYW8eVzjz1b vQ3fZCbPbugeCo9yvAwg _1RK0lQvKxhI8hY5r8Th">
           <div className="j1sPElHG5fkgLNJPo_Q_ BZeqDQO37C9rcYzv8s5n">

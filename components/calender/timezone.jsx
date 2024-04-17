@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import moment from "moment-timezone";
-import '../../styles/demo.css'
 const Timezone = () => {
   const [selectedTimezone, setSelectedTimezone] = useState(moment.tz.guess());
   const timezones = moment.tz.names();
 
   const handleTimezoneChange = (timezone) => {
+    console.log(timezone);
     setSelectedTimezone(timezone);
   };
   return (
