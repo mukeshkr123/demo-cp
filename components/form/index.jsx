@@ -6,21 +6,60 @@ import "./index.css";
 import { useRouter } from "next/navigation";
 import { sendLead } from "@/utils/api";
 
+function convertTo24HourFormat(timeString) {
+  // Split the time string into hours, minutes, and AM/PM indicator
+  const [time, period] = timeString.split(/(?=[ap]m)/i);
+
+  // Split hours and minutes
+  const [hours, minutes] = time.split(":").map(Number);
+
+  // Initialize variable to hold converted hours
+  let convertedHours = hours;
+
+  // If it's PM and not 12, add 12 hours to convert to 24-hour format
+  if (period.toLowerCase() === "pm" && hours !== 12) {
+    convertedHours += 12;
+  }
+
+  // If it's AM and 12, set hours to 0
+  if (period.toLowerCase() === "am" && hours === 12) {
+    convertedHours = 0;
+  }
+
+  // Format the hours, minutes, and seconds to HH:mm:ss format
+  const formattedTime = `${convertedHours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}:00`;
+
+  return formattedTime;
+}
+
 const BookingForm = ({ date, time }) => {
   console.log(date, time);
   const router = useRouter();
 
   const currentDate = new Date();
   const currentTime = currentDate.getHours() + ":" + currentDate.getMinutes();
+
+  const dateObject = new Date(date);
+
+  console.log(dateObject);
+
+  const formattedTime = convertTo24HourFormat(time);
+
+  console.log(formattedTime);
+
+  console.log(currentDate);
   const [formData, setFormData] = useState({
     full_name: "",
     email: "",
     phone_number: "",
     description: "",
     whatsApp_number: "",
-    booking_date: currentDate,
+    booking_date: dateObject,
     // booking_date: date,
-    booking_time: "12:30:00",
+    // booking_time: "12:30:00",
+    booking_time: formattedTime,
     company: "Cloudprism",
     source: "Calendly Demo Booking",
   });

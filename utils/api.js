@@ -58,6 +58,7 @@ const createLead = async (accessToken, leadData) => {
 };
 
 export const sendLead = async (leadData) => {
+  console.log(leadData);
   try {
     const accessToken = await authenticate();
     const result = await createLead(accessToken, leadData);
