@@ -86,14 +86,14 @@ const BookingForm = ({ date, time }) => {
     try {
       await sendLead(formData);
       console.log("Lead sent successfully");
-      // router.push("/schedule");
+      router.push("/schedule");
     } catch (error) {
       console.error("Error sending lead:", error);
     }
   };
 
   const handleClick = () => {
-    navigate("/");
+    router.push("/");
   };
 
   return (
